@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../services/auth_service.dart';
 import '../admin/admin_home_screen.dart';
+import '../../models/user_model.dart';
+import '../employee/employee_home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -27,7 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
         _loading = true;
       });
 
-      await _authService.login(
+      
+      final UserModel user =
+          await _authService.login(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
@@ -35,12 +39,26 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
 
       
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const AdminHomeScreen(),
-        ),
-      );
+      if (user.rol == 'admin') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) =>
+                const AdminHomeScreen(),
+          ),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) =>
+                const EmployeeHomeScreen(),
+          ),
+        );
+      }
+
+
+
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
