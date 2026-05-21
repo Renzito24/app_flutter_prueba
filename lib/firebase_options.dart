@@ -73,4 +73,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'app-escuela-7c755.firebasestorage.app',
     measurementId: 'G-QC4CQRN0JX',
   );
+
 }
