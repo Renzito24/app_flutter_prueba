@@ -1,0 +1,510 @@
+# LOCUSTAF
+
+## Sistema Web de Control de Asistencia Laboral
+
+Versión MVP 1.0
+
+---
+
+# 1. DESCRIPCIÓN GENERAL
+
+LOCUSTAF (Locus Staff) es una aplicación web desarrollada para facilitar el control de asistencia, registro de horas laborales y validación de ubicación de trabajadores mediante geolocalización.
+
+El sistema está orientado inicialmente a pequeños empleadores que necesitan administrar empleados desde una única plataforma.
+
+Ejemplos de uso:
+
+* Personal doméstico
+* Albañiles
+* Niñeros
+* Personal gastronómico
+* Jardineros
+* Empleados temporales
+* Pequeños equipos de trabajo
+
+---
+
+# 2. OBJETIVO GENERAL
+
+Desarrollar una plataforma web moderna, intuitiva, responsive y segura que permita administrar empleados, registrar asistencias y validar la ubicación laboral mediante GPS.
+
+---
+
+# 3. TECNOLOGÍAS OBLIGATORIAS
+
+Frontend:
+
+* Flutter Web
+
+Backend:
+
+* Firebase Authentication
+* Cloud Firestore
+* Firebase Storage
+* Firebase Hosting
+
+Herramientas:
+
+* Visual Studio Code
+* GitHub
+
+---
+
+# 4. ARQUITECTURA DEL SISTEMA
+
+Frontend:
+Flutter Web
+
+Backend:
+Firebase
+
+Base de datos:
+Cloud Firestore
+
+Almacenamiento de archivos:
+Firebase Storage
+
+Autenticación:
+Firebase Authentication
+
+Patrón recomendado:
+
+* Clean Architecture
+* Feature First Structure
+* Repository Pattern
+
+Gestión de estado:
+
+* Riverpod
+
+---
+
+# 5. DISEÑO VISUAL
+
+El sistema debe utilizar exclusivamente modo oscuro.
+
+Características:
+
+* Diseño moderno
+* Profesional
+* Responsive
+* Sidebar lateral fijo
+* Tarjetas informativas
+* Formularios limpios
+* Navegación intuitiva
+
+Paleta sugerida:
+
+Background: #121212
+
+Sidebar: #181818
+
+Cards: #1E1E1E
+
+Borders: #2A2A2A
+
+Primary Color: #3B82F6
+
+Success Color: #22C55E
+
+Error Color: #EF4444
+
+Warning Color: #F59E0B
+
+Primary Text: #FFFFFF
+
+Secondary Text: #B3B3B3
+
+---
+
+# 6. TIPOS DE USUARIO
+
+## Administrador
+
+Responsable de gestionar toda la información.
+
+Permisos:
+
+* Crear empleados
+* Editar empleados
+* Desactivar empleados
+* Crear lugares de trabajo
+* Asignar lugares de trabajo
+* Ver asistencias
+* Ver historial
+* Ver justificativos
+* Generar reportes
+* Visualizar dashboard
+
+---
+
+## Trabajador
+
+Permisos:
+
+* Iniciar sesión
+* Registrar ingreso
+* Registrar egreso
+* Consultar historial personal
+* Subir justificativos médicos
+* Cambiar contraseña
+* Consultar horas trabajadas
+
+---
+
+# 7. ESTRUCTURA DE NAVEGACIÓN
+
+## Vista Administrador
+
+Menú lateral:
+
+* Dashboard
+* Empleados
+* Lugares de Trabajo
+* Asistencias
+* Historial
+* Justificativos
+* Reportes
+* Perfil
+* Cerrar Sesión
+
+---
+
+## Vista Trabajador
+
+Pantalla principal:
+
+* Bienvenida personalizada
+* Lugar asignado
+* Estado de geolocalización
+* Registrar ingreso
+* Registrar egreso
+* Historial personal
+* Perfil
+* Cerrar sesión
+
+---
+
+# 8. DASHBOARD ADMINISTRADOR
+
+Debe mostrar:
+
+* Total de empleados
+* Empleados presentes
+* Empleados ausentes
+* Empleados con justificativo
+* Asistencias del día
+* Lugares activos
+* Actividad reciente
+
+Visualización mediante tarjetas (cards).
+
+---
+
+# 9. EMPLEADOS
+
+Datos requeridos:
+
+* Nombre
+* Apellido
+* DNI
+* Correo electrónico
+* Teléfono
+* Dirección
+* Categoría laboral
+* Lugar de trabajo asignado
+
+Funciones:
+
+* Crear
+* Editar
+* Buscar
+* Filtrar
+* Desactivar
+
+La contraseña inicial será el DNI.
+
+Ejemplo:
+
+Email:
+[trabajador@gmail.com](mailto:trabajador@gmail.com)
+
+Contraseña:
+40111222
+
+---
+
+# 10. CATEGORÍAS LABORALES
+
+Ejemplos:
+
+* Construcción
+* Personal Doméstico
+* Gastronomía
+* Niñera
+* Jardinería
+* Administrativo
+* Otro
+
+---
+
+# 11. LUGARES DE TRABAJO
+
+El administrador podrá crear múltiples lugares.
+
+Datos:
+
+* Nombre
+* Dirección
+* Latitud
+* Longitud
+* Radio permitido
+
+Ejemplo:
+
+Nombre:
+Obra Palermo
+
+Radio:
+100 metros
+
+Todo empleado debe tener un lugar asignado.
+
+---
+
+# 12. GEOLOCALIZACIÓN
+
+La geolocalización es obligatoria.
+
+Proceso:
+
+1. Solicitar ubicación GPS.
+2. Obtener latitud y longitud.
+3. Obtener lugar asignado.
+4. Calcular distancia.
+5. Comparar con radio permitido.
+
+Si la distancia es válida:
+
+Asistencia registrada.
+
+Si la distancia supera el radio permitido:
+
+Mostrar mensaje:
+
+"Usted se encuentra fuera del rango permitido."
+
+No registrar asistencia.
+
+---
+
+# 13. ASISTENCIAS
+
+Registrar:
+
+* Fecha
+* Hora ingreso
+* Hora egreso
+* Latitud
+* Longitud
+* Distancia calculada
+
+Reglas:
+
+* Un ingreso por día.
+* No permitir duplicados.
+* Debe existir ingreso para registrar egreso.
+
+---
+
+# 14. HISTORIAL
+
+## Trabajador
+
+Visualiza:
+
+* Fecha
+* Hora ingreso
+* Hora egreso
+* Horas trabajadas
+
+## Administrador
+
+Visualiza toda la información del sistema.
+
+---
+
+# 15. JUSTIFICATIVOS MÉDICOS
+
+Formatos permitidos:
+
+* PDF
+* JPG
+* PNG
+
+Almacenamiento:
+
+Firebase Storage
+
+Información asociada:
+
+* Empleado
+* Fecha de carga
+* Archivo
+
+---
+
+# 16. REPORTES
+
+Filtros:
+
+* Por empleado
+* Por fecha
+* Por categoría
+
+Información:
+
+* Horas trabajadas
+* Asistencias
+* Ausencias
+
+---
+
+# 17. PERFIL
+
+Funciones:
+
+* Cambiar contraseña
+* Actualizar datos personales básicos
+
+---
+
+# 18. REQUISITOS FUNCIONALES
+
+RF01 Login.
+
+RF02 Roles.
+
+RF03 Gestión de empleados.
+
+RF04 Gestión de lugares de trabajo.
+
+RF05 Registro de ingreso.
+
+RF06 Registro de egreso.
+
+RF07 Validación GPS.
+
+RF08 Dashboard.
+
+RF09 Historial.
+
+RF10 Justificativos médicos.
+
+RF11 Reportes.
+
+RF12 Cambio de contraseña.
+
+---
+
+# 19. REQUISITOS NO FUNCIONALES
+
+RNF01 Interfaz intuitiva.
+
+RNF02 Seguridad.
+
+RNF03 Buen rendimiento.
+
+RNF04 Responsive.
+
+RNF05 Escalabilidad.
+
+RNF06 Diseño Dark Theme.
+
+---
+
+# 20. ALCANCE MVP
+
+Incluye:
+
+✓ Login
+
+✓ Roles
+
+✓ Dashboard
+
+✓ Empleados
+
+✓ Lugares de trabajo
+
+✓ Geolocalización
+
+✓ Validación por radio
+
+✓ Registro de ingreso
+
+✓ Registro de egreso
+
+✓ Historial
+
+✓ Justificativos médicos
+
+✓ Reportes básicos
+
+✓ Perfil
+
+---
+
+# 21. ESTRUCTURA DE FIRESTORE
+
+Colecciones sugeridas:
+
+users
+
+employees
+
+workplaces
+
+attendances
+
+medical_certificates
+
+reports
+
+---
+
+# 22. CONVENCIONES DE CÓDIGO
+
+Toda la interfaz visible al usuario debe estar en español.
+
+El código interno debe utilizar nombres en inglés.
+
+Ejemplos:
+
+Employee
+
+Workplace
+
+Attendance
+
+MedicalCertificate
+
+Report
+
+---
+
+# 23. MEJORAS FUTURAS (VERSIÓN 2.0)
+
+* Multiempresa
+* Múltiples administradores
+* Exportación PDF
+* Estadísticas avanzadas
+* Dashboard analítico
+* Notificaciones
+* Gestión de turnos
+* Código QR
+* Aplicación Android
+* Aplicación iOS
+* Integración con mapas
+* Geocercas avanzadas
+* Captura fotográfica al registrar asistencia

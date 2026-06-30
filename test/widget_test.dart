@@ -1,30 +1,37 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:app_prueba/main.dart';
+import 'package:app_prueba/core/theme.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('AppTheme', () {
+    test('buildDarkTheme returns dark theme', () {
+      final theme = buildDarkTheme();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      expect(theme.brightness, Brightness.dark);
+      expect(theme.scaffoldBackgroundColor, const Color(0xFF121212));
+      expect(theme.cardColor, const Color(0xFF1E1E1E));
+      expect(theme.dividerColor, const Color(0xFF2A2A2A));
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    test('colorScheme has correct primary color', () {
+      final theme = buildDarkTheme();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      expect(theme.colorScheme.primary, const Color(0xFF3B82F6));
+      expect(theme.colorScheme.error, const Color(0xFFEF4444));
+    });
+
+    test('appBar has correct background', () {
+      final theme = buildDarkTheme();
+
+      expect(theme.appBarTheme.backgroundColor, const Color(0xFF181818));
+      expect(theme.appBarTheme.foregroundColor, Colors.white);
+    });
+
+    test('drawer has correct background', () {
+      final theme = buildDarkTheme();
+
+      expect(theme.drawerTheme.backgroundColor, const Color(0xFF181818));
+    });
   });
 }
